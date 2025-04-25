@@ -149,8 +149,12 @@ window.addEventListener('DOMContentLoaded', function () {
       );
   
       const url = new TextDecoder().decode(decrypted);
-      window.location.href = url;
-    } catch (e) {
+      let finalUrl = url.trim();
+      if (!/^https?:\/\//i.test(finalUrl)) {
+        finalUrl = 'https://' + finalUrl;
+      }
+      window.location.href = finalUrl;
+          } catch (e) {
       document.getElementById('errorText').textContent = "Incorrect password or corrupted data.";
     }
   }
