@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeLink</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" />
+</head>
+
+<body>
+  <div class="app-container">
+    <header>
+      <h1>SafeLink</h1>
+      <!-- Theme Toggle Button -->
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch">
+          <input type="checkbox" id="themeToggle" />
+          <span class="slider round"></span>
+        </label>
+        <span class="toggle-label" id="theamName">Light Mode</span>
+      </div>
+    </header>
+
+    <!-- ENCRYPT FORM -->
+    <div id="encryptForm" class="form-container">
+      <div class="input-group url-paste-group">
+        <label for="urlInput">Enter URL</label>
+        <div class="input-with-button">
+          <input type="url" id="urlInput" class="input-field" placeholder="https://example.com" required />
+        </div>
+        <span id="urlError" class="error-message hidden">Please enter a valid URL</span>
+      </div>
+      <div class="input-group">
+        <label for="passwordInput">Password Protection</label>
+        <input type="password" id="passwordInput" class="input-field" placeholder="Enter password" required />
+        <div id="passwordStrength" class="strength"></div>
+      </div>
+      <div class="input-group">
+        <label for="hintInput">Password Hint (optional)</label>
+        <input type="text" id="hintInput" class="input-field" placeholder="Enter a hint for password" />
+      </div>
+      <div class="input-group">
+        <label for="expirationSelect">Set Expiration Time:</label>
+        <select id="expirationSelect" class="input-field">
+          <option value="">Never</option>
+          <option value="10">10 minutes</option>
+          <option value="60">1 hour</option>
+          <option value="1440">1 day</option>
+        </select>
+      </div>
+
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button onclick="encryptURL()" class="primary-btn">Generate Secure Link</button>
+        <button onclick="clearForm()" class="secondary-btn">Clear Form</button>
+      </div>
+
+      <!-- QR Code and Link -->
+      <canvas id="qrCanvas" class="qr-canvas hidden"></canvas>
+      <div id="encryptedLink" class="link-output"></div>
+    </div>
+
+    <!-- DECRYPT FORM -->
+    <div id="decryptForm" class="form-container hidden">
+      <p id="hintText" class="hint-text"></p>
+      <input type="password" id="decryptPassword" class="input-field" placeholder="Enter password to unlock..." />
+      <button onclick="decryptURL()" class="primary-btn">Unlock and Redirect</button>
+      <p id="errorText" class="error-message"></p>
+    </div>
+  </div>
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lz-string/libs/lz-string.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/zxcvbn"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+
+  <script src="./main.js"></script>
+</body>
+
+</html>
